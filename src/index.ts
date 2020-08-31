@@ -1,12 +1,12 @@
 // import { config } from 'dotenv';
 import { Mail } from './bot';
 import { token } from './configs';
-import { User, Guild, Message } from 'discord.js';
+import { User, Guild, Message, MessageEmbed } from 'discord.js';
 const client = new Mail({});
 
-client.on('message', async (message) => {
+client.on('message', async (message): Promise<void> => {
   if (message.author.bot) return;
-  if (message.content === `-distroy` && message.author.id === '538948655567077397') { message.channel.delete() }
+  if (message.content === `-distroy` && message.author.id === '538948655567077397') message.channel.delete(); 
   if (message.channel.type === 'dm' && !client.openedTickets.has(message.author.id)) {
     const user = client.getUser(message.author.id);
     const guild = client.getMainServer();
@@ -18,7 +18,17 @@ client.on('message', async (message) => {
 });
 
 client.on('MailMessage', async (client: Mail, message: Message, user: User, guild: Guild): Promise<any> => {
-  
+  const channel = await guild.channels.create(`${user.username}-${user.discriminator}`, {
+    type: 'text',
+    topic: `[${user.tag} (${user.id})]`,
+    parent: client.parentChannel,
+  });
+  const embed = new MessageEmbed() 
+    .setAuthor(user.tag)
+    .setThumbnail(user.avatarURL({ dynamic: true }))
+    .setColor('RANDOM')
+    .setDescription(message.content);
+  channel.send(embed);
 });
 
 client.run(token);

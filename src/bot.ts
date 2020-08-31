@@ -4,11 +4,12 @@ import { actionLogChannel, mainServer, prefix, parentChannel } from './configs';
 export class Mail extends Client {
   actionLogChannel: string;
   openedTickets: Map<string, any>;
+  openedUserStaff: Map<string, any>;
   parentChannel: string;
   mainServer: string;
   prefix: string;
   
-  constructor(options: Object) {
+  public constructor(options: Object) {
     super(options);
 
     this.on('ready', (): void => {
@@ -27,13 +28,14 @@ export class Mail extends Client {
     this.parentChannel = parentChannel
     this.actionLogChannel = actionLogChannel;    
     this.mainServer = mainServer;
+    this.openedUserStaff = new Map();
   }
 
-  getMainServer() {
+  public getMainServer() {
     return this.guilds.cache.get(this.mainServer);
   }
 
-  getUser(userid: string) {
+  public getUser(userid: string) {
     return this.users.cache.get(userid);
   }
 

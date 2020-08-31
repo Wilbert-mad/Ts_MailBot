@@ -15,9 +15,8 @@ export class Mail extends Client {
     this.on('ready', (): void => {
       console.log('Bot ready as');
       console.log(this.user.tag);
-      console.log('vv Status vv');
-      console.log('Guilds: ');
-      console.log(this.guilds.cache.size);
+      console.log(this.user.id);
+      console.log('✨ Status 🚀');
       console.log('Users: ');
       console.log(this.users.cache.size);
       console.log('-------------------------');

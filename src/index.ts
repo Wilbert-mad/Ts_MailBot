@@ -60,6 +60,18 @@ client.on('MailMessage', async (client: Mail, message: Message, user: User, guil
       }
     }
   });
+
+  
+  const DMChannelCollector = user.dmChannel.createMessageCollector((m: Message) => !m.author.bot);
+  // collect messages on the dm channel of the user will a userTicket is open
+  DMChannelCollector.on('collect', (msg: DMChannel) => {
+    const embed = new MessageEmbed()
+      .setAuthor(user.tag, user.avatarURL({ dynamic: true }))
+      .setDescription(`${msg}`)
+      .setFooter(`Message ID: ${msg.id}`)
+      .setTimestamp();
+    channel.send(embed);
+  });
 });
 
 client.run(token);

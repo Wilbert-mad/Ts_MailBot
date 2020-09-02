@@ -1,6 +1,6 @@
 // import { config } from 'dotenv';
 import { Mail } from './bot';
-import { token } from './configs';
+import { token } from './configs/configs';
 import { User, Guild, Message, MessageEmbed, DMChannel } from 'discord.js';
 // create instanceof mail client
 const client = new Mail({});

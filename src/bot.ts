@@ -1,5 +1,5 @@
 import { Client } from 'discord.js';
-import { actionLogChannel, mainServer, prefix, parentChannel } from './configs';
+import { actionLogChannel, mainServer, prefix, parentChannel } from './configs/configs';
 
 export class Mail extends Client {
   actionLogChannel: string;

@@ -61,6 +61,30 @@ client.on('MailMessage', async (client: Mail, message: Message, user: User, guil
             channel.send('Ticket has been closed');
             break;
           }
+          case 'anonymous-reply': {
+            const reply = new MessageEmbed()
+              .setAuthor(client.user.tag, client.user.avatarURL())
+              .setDescription(args.join(' '))
+              .setTimestamp();
+            user.send(reply);
+            break;
+          }
+          case 'r': {
+            const reply = new MessageEmbed()
+              .setAuthor(msg.author.tag, msg.author.avatarURL({ dynamic: true }))
+              .setDescription(args.join(' '))
+              .setTimestamp();
+            user.send(reply);
+            break;
+          }
+          case 'ar': {
+            const reply = new MessageEmbed()
+              .setAuthor(client.user.tag, client.user.avatarURL())
+              .setDescription(args.join(' '))
+              .setTimestamp();
+            user.send(reply);
+            break;
+          }
         }
       }
     }

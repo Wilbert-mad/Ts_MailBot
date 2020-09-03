@@ -45,15 +45,20 @@ client.on('MailMessage', async (client: Mail, message: Message, user: User, guil
       user: user.id
     });
     if (client.openedUserStaff.has(msg.author.id)) {
-      if ((client.openedUserStaff.get(msg.author.id).channel) === msg.channel.id) {
+      if (((client.openedUserStaff.get(msg.author.id)).channel) === msg.channel.id) {
         switch (commandName) {
           case 'reply': {
-            console.log(args);
+            const reply = new MessageEmbed()
+              .setAuthor(msg.author.tag, msg.author.avatarURL({ dynamic: true }))
+              .setDescription(args.join(' '))
+              .setTimestamp();
+            user.send(reply);
             break;
           }
           case 'stop': {
             messageCollector.stop();
             client.openedTickets.delete(user.id);
+            channel.send('Ticket has been closed');
             break;
           }
         }
@@ -67,7 +72,7 @@ client.on('MailMessage', async (client: Mail, message: Message, user: User, guil
   DMChannelCollector.on('collect', (msg: DMChannel) => {
     const embed = new MessageEmbed()
       .setAuthor(user.tag, user.avatarURL({ dynamic: true }))
-      .setDescription(`${msg}`)
+      .setDescription(msg)
       .setFooter(`Message ID: ${msg.id}`)
       .setTimestamp();
     channel.send(embed);
